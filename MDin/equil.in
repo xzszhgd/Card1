@@ -1,0 +1,22 @@
+Explicit solvent molecular dynamics constant pressure MD
+ &cntrl
+  imin=0,         ! 0 No minimization; 1 Single point energy calculation.
+  irest=0,        ! 0 (default) Do not restart the simulation; instead, run as a new simulation. Velocities in the input coordinate file, if any, will be ignored, and the time step count will be set to 0 (unless overridden by t; see below).; 1 Restart the simulation, reading coordinates and velocities from a previously saved restart file. The velocity information is necessary when restarting, so ntx (see above) must be 4 or higher if irest = 1.
+  ntx=1,          ! 1 Coordinates, but no velocities, will be read; 5 Coordinates and velocities will be read.
+  nstlim=500000,
+  dt=0.002,
+  ntc=2,          ! 1 SHAKE is not performed (default); 2 bonds involving hydrogen are constrained; 3 all bonds are constrained (not available for parallel or qmmm runs in sander)
+  ntf=2,         ! 1 complete interaction is calculated (default); 2 bond interactions involving H-atoms omitted (use with NTC=2); 3 all the bond interactions are omitted (use with NTC=3); 4 angle involving H-atoms and all bonds are omitted; 5 all bond and angle interactions are omitted; 6 dihedrals involving H-atoms and all bonds and all angle interactions are omitted; 7 all bond, angle and dihedral interactions are omitted; 8 all bond, angle, dihedral and non-bonded interactions are omitted
+  cut=12.0,      
+  ntb=2,          ! 0 no periodicity is applied and PME is off; 1 constant volume; 2 constant pressure
+  ntp=1,          ! 0 No pressure scaling (Default) ; 1 md with isotropic position scaling;  2 md with anisotropic (x-,y-,z-) ; 3 md with semiisotropic pressure scaling.n (csurften > 0) and orthogonal boxes. This links the pressure coupling in the two directions tangential to the interface. 
+  taup=2.0,       !Pressure relaxation time (in ps), when NTP > 0. 
+  ntpr=500, 
+  ntwx=500,
+  ntt=3,         ! Switch for temperature scaling:1 Constant temperature, using the weak-coupling algorithm.; 2 Andersen-like temperature coupling scheme; 3 Use Langevin dynamics with the collision frequency γ given by gamma_ln.
+  gamma_ln=2.0,  ! The collision frequency γ, in ps −1 , when ntt = 3. Default is 0.
+  temp0=310.0,   ! Reference temperature at which the system is to be kept, if ntt > 0. Note that for temperatures above 300K, the step size should be reduced. 
+  tempi=310.0,   ! Initial temperature. For the initial dynamics run, (NTX .lt. 3) the velocities are assigned from a axwellian distribution at TEMPI K. If TEMPI = 0.0, the velocities will be calculated from the forces instead. TEMPI has no effect if NTX .gt. 3. Default 0.0.
+  ig=-1,         ! The seed for the pseudo-random number generator. The MD starting velocity is dependent on the random number generator seed if NTX .lt. 3 .and. TEMPI .ne. 0.0. The value of this seed also affects the set of pseudo-random values used for Langevin dynamics or Andersen-like coupling, and hence should be set to a different value on each restart if ntt = 2 or 3. If ig=-1, (the default) the random seed will be based on the current date and time, and hence will be different for every run. It is recommended that, unless you specifically desire reproducibility, that you set ig=-1 for all runs involving ntt=2 or 3.
+
+ /

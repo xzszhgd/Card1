@@ -1,0 +1,22 @@
+Initial minimization w/ position restraints (25 kcal/molA) and PME (sander)
+ &cntrl
+  imin   = 1,
+
+  ntpr   = 1,
+
+  ntb    = 1,
+  cut    = 12.0,
+  nsnb   = 10,
+
+  ntr    = 1,
+
+  maxcyc = 5000,
+  ntmin  = 1,
+  ncyc   = 2500,
+  dx0    = 0.1,
+ &end
+Hold the Protein fixed
+5.0
+RES 1 55
+END
+END
